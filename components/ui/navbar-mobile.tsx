@@ -22,7 +22,7 @@ export default function NavbarMobile({
       }
     >
       <section className="w-screen max-w-xs h-full bg-white shadow-xl flex flex-col">
-        {/* Header con botón de cierre */}
+      
         <header className="flex justify-between items-center p-6 border-b">
           <p className="text-lg tracking-wide hover:text-primary transition-colors  uppercase">Terra</p>
           <Button
