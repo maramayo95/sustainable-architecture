@@ -1,18 +1,27 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import Link from "next/link"
+import { useState, useEffect } from "react";
+
+import { NavbarDesktop } from "./navbar-desktop";
+import NavbarMobile from "./ui/navbar-mobile";
+import { Button } from "./ui/button";
+import { Menu } from "lucide-react";
 
 export function Navbar() {
-  const [scrolled, setScrolled] = useState(false)
+  const [scrolled, setScrolled] = useState(false);
+  const [isMobileOpen, setIsMobileOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 100)
-    }
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
+      setScrolled(window.scrollY > 100);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const handleMobileToggle = () => {
+    setIsMobileOpen(!isMobileOpen);
+  };
 
   const links = [
     { href: "#inicio", label: "Inicio" },
@@ -22,33 +31,29 @@ export function Navbar() {
     { href: "#materiales", label: "Materiales" },
     { href: "#prensa", label: "Prensa" },
     { href: "#contacto", label: "Contacto" },
-  ]
+  ];
 
   return (
-    <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? "bg-background/95 backdrop-blur-sm border-b" : "bg-white"
-      }`}
-    >
-      <div className="container mx-auto px-6 lg:px-12">
-        <div className="flex items-center justify-between h-20">
-          <Link href="#inicio" className="font-serif text-2xl font-light tracking-tight">
-            TERRA
-          </Link>
-
-          <div className="hidden md:flex items-center gap-8">
-            {links.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="text-sm tracking-wide hover:text-primary transition-colors font-mono uppercase"
-              >
-                {link.label}
-              </Link>
-            ))}
-          </div>
-        </div>
+    <>
+      <div className="hidden lg:block">
+        <NavbarDesktop brand="TERRA" scrolled={scrolled} links={links} />
       </div>
-    </nav>
-  )
+
+      <div className="fixed top-0 right-0 z-50 lg:hidden p-4">
+        <Button
+          size="lg"
+          className="bg-white border text-primary-foreground font-mono uppercase tracking-wider"
+          onClick={() => setIsMobileOpen(true)}
+        >
+          <Menu className="h-6 w-6" />
+        </Button>
+
+        <NavbarMobile
+          links={links}
+          isOpen={isMobileOpen}
+          setIsOpen={handleMobileToggle}
+        />
+      </div>
+    </>
+  );
 }

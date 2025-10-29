@@ -10,7 +10,7 @@ export function Hero() {
     >
       {/* Columna izquierda: texto */}
       <div className="z-10 container mx-auto px-6 lg:px-12 text-center lg:text-left">
-        <h1 className="font-serif text-4xl md:text-7xl lg:text-8xl font-light text-foreground mb-8 leading-tight">
+        <h1 className="mt-10 lg:mt-0 font-serif text-4xl md:text-7xl lg:text-8xl font-light text-foreground mb-8 leading-tight">
           Espacios con baja huella
           y alto impacto humano
         </h1>
